@@ -1,7 +1,6 @@
 package com.example.clase7gtics.controller;
 
 import com.example.clase7gtics.entity.Funcion;
-import com.example.clase7gtics.entity.Product;
 import com.example.clase7gtics.repository.*;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
