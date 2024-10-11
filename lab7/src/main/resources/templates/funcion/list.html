@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="~{fragments/navbar.html :: header( title = 'Funciones')}"></head>
+    <body>
+        <div class="container">
+            <nav th:replace="~{fragments/navbar.html :: navbar( active = 'Funcion')}"></nav>
+            <h2>Lista de Productos</h2>
+            <a class="btn btn-primary mt-4 mb-4" th:href="@{'/funciones/new'}">Nuevo Proyeccion</a>
+            <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Película</th>
+                        <th>Sala</th>
+                        <th>Fecha y Hora</th>
+                        <th>Asientos Disponibles</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="funcion, info : ${listaFunciones}">
+                        <td th:text="${info.index + 1}"></td>
+
+                        <td th:text="${funcion.room.name}"></td>
+                        <td th:text="${funcion.funcionDate}"></td>
+                        <td th:text="${funcion.availableSeats}"></td>
+                        <td sec:authorize="isAuthenticated()">
+                            <a class="btn btn-primary" th:href="@{'/funciones/edit' + '?id=' + ${funcion.id}}">Editar</a>
+                        </td>
+                        <td sec:authorize="hasAnyAuthority('admin')">
+                            <a class="btn btn-danger" th:href="@{'/funciones/delete' + '?id=' + ${funcion.id}}">Borrar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script th:replace="~{fragments/navbar.html :: footer-bootstrap}"></script>
+    </body>
+</html>
